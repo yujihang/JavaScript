@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>圆形进度显示</title>
+		<style>
+			.loading-box{
+				display:inline-block;
+				position:relative;
+				margin:100px;
+				text-align: center;
+			}
+			.loading-box .loading-num{
+				padding:10px;
+			}
+			.circleloading {
+				position: relative;
+				width: 100px;
+				height: 100px;
+				text-align: center;
+				overflow: hidden;
+				margin-top: -60px;
+			}
+			
+			.circleloading img {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				width: 80px;
+				height: 80px;
+				z-index: 10;
+			}
+			
+			.circleloading,
+			.circleloading img{
+				border-radius: 50%;
+			}
+			
+			.left,
+			.right {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;  /*旋转中心仍在中间*/
+				clip: rect(0, 50px, 100px, 0); /* clip剪切 支持图形方法，当前只支持 rect () 属性。：rect()属性的top和bottom指定的偏移量是从元素盒子顶部边缘算起的；left和right指定的偏移量是从元
+											        素盒子左边边缘算起的*/
+				background: #FFFFFF;  /*白色,左半圆*/
+			}
+			
+			.left {
+				z-index: 7;
+				background: #afe4dd;
+			}
+			
+			.right {
+				z-index: 8; /*覆盖刚开始left的颜色,使left不可见*/
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="loading-box">
+			<div class="circleloading">
+				<div class="left"></div>
+				<div class="right"></div>
+				<img src="t_balloon_logo.png" alt="" />
+			</div>
+			<div class="loading-num">0%</div>
+		</div>
+		<script>
+			var num = 0;
+			var loadingNum = document.querySelector('.loading-num');
+			var left = document.querySelector('.left');
+			var right = document.querySelector('.right');
+			var range = 18;
+			var timer = null;
+			timer = setInterval(function() {
+				range += 18;
+				num += 5;    /*以18度为间隔,分为20份，360/20=18，100/20=5*/
+				loadingNum.innerHTML = num + '%';
+				if(range <= 180) {   /*左边*/
+					left.style.webkitTransform = 'rotate(' + range + 'deg)';
+					left.style.transform = 'rotate(' + range + 'deg)';
+				} else {
+					right.style.background = '#afe4dd';   /*大于180才上色*/
+					if(range <= 360) {
+						right.style.webkitTransform = 'rotate(' + range + 'deg)'; /*这里直接旋转了198度*/
+						right.style.transform = 'rotate(' + range + 'deg)';
+					} else {
+						clearInterval(timer);
+						loadingNum.innerHTML = '100%';
+					};
+				};
+			}, 30);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>粒子聚集</title>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<canvas id="canvas2"></canvas>
+		<script src="explode.js"></script>
+		<script>
+			var explode = new Explode('#canvas',{
+				type: 1,
+				width: 700,
+				height: 300,
+				text: '欢迎来到清水河畔！'
+			});
+			var explode2 = new Explode('#canvas2',{
+				type: 2,
+				width: 300,
+				height: 400,
+				img: 'girl.jpg'
+			});
+		</script>
+	</body>
+</html>

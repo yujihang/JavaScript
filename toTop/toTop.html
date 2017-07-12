@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>回到顶部</title>
+		<link rel="stylesheet" href="../../project5-yujihang.com/cv/css/main1.css" />
+		<link rel="stylesheet" href="../../CSS/button/buttons.css" />
+		<style>
+		body{
+			height:1000px;
+		}
+			.scrollTop {
+				position: fixed;
+				right: 20px;
+				bottom: 20px;
+				opacity: 0;
+				-webkit-transition:opacity .3s;
+				transition:opacity .3s;
+			}
+			.scrollTop i{
+				font-size:30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		向下滚动试试
+		<button type="button" class="btn btn-danger btn-circle scrollTop">
+			<i class="iconfont icon-fanhuidingbu"></i>
+		</button>
+		<script>
+			window.addEventListener('scroll',function(){
+				var top = document.body.scrollTop || document.documentElement.scrollTop;
+				if (top > 0) { //滚动后显示该按钮
+					document.querySelector('.scrollTop').style.opacity = 1;
+				} else {
+					document.querySelector('.scrollTop').style.opacity = 0;
+				}
+			});
+			var scrollTop = document.querySelector('.scrollTop');
+			scrollTop.addEventListener('click',function(){
+				var top = document.body.scrollTop || document.documentElement.scrollTop;
+				var ax = 0;
+				if(top > 0){
+					scrollTop.timer = setInterval(function(){
+						if (top <= 0) {
+							clearInterval(scrollTop.timer);
+						} else {
+							ax += 20;
+							top -= ax;//top以20为步长不断减小
+							window.scrollTo(0, top);//scrollTo滚动条的垂直坐标,scrollTo(xpos,ypos)要在窗口文档显示区左上角显示的文档的 x和y 坐标
+						};
+					},100);
+				}
+			});
+		</script>
+	</body>
+
+</html>
